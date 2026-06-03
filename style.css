@@ -70,7 +70,7 @@ img { max-width:100%; display:block; }
 
 /* ─── LAYOUT ─────────────────────────────────────────────── */
 .app-layout {
-  display:   block;
+  display:   flex;
   min-height: 100vh;
 }
 
@@ -110,7 +110,6 @@ img { max-width:100%; display:block; }
 
 /* Desktop: sidebar siempre visible */
 @media (min-width:1024px) {
-  .app-layout { display: flex; }
   .sidebar {
     transform: translateX(0);
     position:  fixed;
@@ -122,6 +121,16 @@ img { max-width:100%; display:block; }
 
 @media (max-width:1023px) {
   .sidebar-overlay { display:block; }
+  .sidebar {
+    width: 0;
+    border-right: none;
+    overflow: hidden;
+  }
+  .sidebar.open {
+    width: var(--sidebar-w);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+  }
 }
 
 /* Logo oficial en sidebar */
