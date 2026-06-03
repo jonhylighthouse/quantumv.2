@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quantum — Dashboard de red de equipo. Visualiza puntos, niveles, objetivos y estructura de tu red en tiempo real.">
+  <meta name="theme-color" content="#050505">
+  <title>Quantum — Dashboard de Red</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=5">
+  <!-- Favicon con la Q del logo -->
+  <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     LAYOUT PRINCIPAL
+════════════════════════════════════════════════════════════ -->
+<div class="app-layout">
+
+  <!-- ─── OVERLAY (mobile sidebar) ─── -->
+  <div id="sidebar-overlay" class="sidebar-overlay" role="presentation"></div>
+
+  <!-- ════════════════════════════════
+       SIDEBAR
+  ═════════════════════════════════ -->
+  <aside id="sidebar" class="sidebar" role="navigation" aria-label="Menú principal">
+
+    <!-- Logo oficial -->
+    <div class="sidebar-logo">
+      <a class="sidebar-logo-link" data-section="about" href="#" onclick="navigate('about');return false;"
+         aria-label="Ir a inicio Quantum">
+        <img src="logo.png" alt="Quantum Logo" class="sidebar-logo-img">
+      </a>
+    </div>
+
+    <!-- Navegación -->
+    <nav class="sidebar-nav">
+
+      <div class="nav-section-label">Ecosistema</div>
+
+      <a class="nav-link active" data-section="home" href="#" role="menuitem"
+         id="nav-home" aria-current="page">
+        <span class="nav-icon">🏠</span>
+        Inicio
+      </a>
+
+      <a class="nav-link" data-section="guide" href="#" role="menuitem"
+         id="nav-guide">
+        <span class="nav-icon">📖</span>
+        Guía de Duplicación
+      </a>
+
+      <div class="nav-section-label" style="margin-top:.75rem">Planificación</div>
+
+      <a class="nav-link" data-section="contacts" href="#" role="menuitem"
+         id="nav-contacts">
+        <span class="nav-icon">👥</span>
+        Contactos (CRM)
+      </a>
+
+
+      <div class="nav-section-label" style="margin-top:.75rem">Resultados</div>
+
+      <a class="nav-link" data-section="growth" href="#" role="menuitem"
+         id="nav-growth">
+        <span class="nav-icon">📈</span>
+        Crecimiento
+      </a>
+
+      <a class="nav-link" data-section="settings" href="#" role="menuitem"
+         id="nav-settings">
+        <span class="nav-icon">⚙️</span>
+        Configuración
+      </a>
+
+    </nav>
+
+    <!-- Estado de sincronización -->
+    <div class="sidebar-footer">
+      <div id="sync-badge" class="sync-badge">
+        <div id="sync-dot" class="sync-dot sync-dot-idle"></div>
+        <span id="sync-text">Sin sincronizar</span>
+      </div>
+    </div>
+
+  </aside>
+  <!-- /sidebar -->
+
+
+  <!-- ════════════════════════════════
+       CONTENIDO PRINCIPAL
+  ═════════════════════════════════ -->
+  <div class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar" role="banner">
+      <button id="hamburger" class="topbar-hamburger" aria-label="Abrir menú"
+              aria-expanded="false" aria-controls="sidebar">
+        ☰
+      </button>
+      <!-- Logo en topbar (mobile) -->
+      <a class="topbar-logo-wrap" data-section="about" href="#"
+         onclick="navigate('about');return false;" aria-label="Inicio">
+        <img src="logo.png" alt="Quantum" class="topbar-logo-img">
+        <span class="topbar-title">QUANTUM</span>
+      </a>
+      <div class="topbar-sync">
+        <div id="sync-badge-top" class="sync-badge" style="display:none"></div>
+      </div>
+    </header>
+
+    <!-- ─── SECCIÓN: BIENVENIDA ─── -->
+    <section id="section-welcome" class="section" aria-label="Bienvenida">
+    </section>
+
+    <!-- ─── SECCIÓN: ABOUT (inicio) ─── -->
+    <section id="section-about" class="section" aria-labelledby="about-title">
+      <!-- Renderizado por app.js → renderAbout() -->
+    </section>
+
+    <!-- ─── SECCIÓN: DASHBOARD ─── -->
+    <!-- ─── SECCIÓN: INICIO (HOME) ─── -->
+    <section id="section-home" class="section">
+      <!-- Skeleton mientras carga -->
+      <div style="padding:2rem;color:#666;text-align:center">
+        <div class="skeleton" style="height:32px;width:200px;margin:0 auto 1rem"></div>
+        <div class="skeleton" style="height:120px;margin-bottom:.75rem"></div>
+        <div class="skeleton" style="height:120px;margin-bottom:.75rem"></div>
+      </div>
+    </section>
+
+    <!-- ─── SECCIÓN: GUÍA DE DUPLICACIÓN ─── -->
+    <section id="section-guide" class="section" style="display:none">
+    </section>
+
+    <!-- ─── SECCIÓN: CONTACTOS (CRM) ─── -->
+    <section id="section-contacts" class="section" style="display:none">
+    </section>
+
+
+    <!-- ─── SECCIÓN: CRECIMIENTO ─── -->
+    <section id="section-growth" class="section" style="display:none">
+    </section>
+
+    <!-- ─── SECCIÓN: CONFIGURACIÓN ─── -->
+    <section id="section-settings" class="section" style="display:none">
+    </section>
+
+  </div>
+  <!-- /main-content -->
+
+</div>
+<!-- /app-layout -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     MODAL OVERLAY (agregar/editar miembro)
+════════════════════════════════════════════════════════════ -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Formulario de miembro">
+  <!-- Contenido inyectado por openMemberModal() -->
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAVEGACIÓN MOBILE (bottom nav)
+════════════════════════════════════════════════════════════ -->
+<nav class="mobile-nav" role="navigation" aria-label="Navegación móvil">
+  <button class="mobile-nav-btn active" data-section="home"
+          id="mob-nav-home" aria-label="Inicio">
+    <span>🏠</span>
+    <span>Inicio</span>
+  </button>
+  <button class="mobile-nav-btn" data-section="guide"
+          id="mob-nav-guide" aria-label="Guía">
+    <span>📖</span>
+    <span>Guía</span>
+  </button>
+  <button class="mobile-nav-btn" data-section="contacts"
+          id="mob-nav-contacts" aria-label="Contactos">
+    <span>👥</span>
+    <span>CRM</span>
+  </button>
+
+  <button class="mobile-nav-btn" data-section="growth"
+          id="mob-nav-growth" aria-label="Crecimiento">
+    <span>📈</span>
+    <span>Metas</span>
+  </button>
+  <button class="mobile-nav-btn" data-section="settings"
+          id="mob-nav-settings" aria-label="Configuración">
+    <span>⚙️</span>
+    <span>Config</span>
+  </button>
+</nav>
+
+
+<!-- ─── SCRIPTS ─── -->
+<script src="app.js?v=5"></script>
+
+</body>
+</html>
