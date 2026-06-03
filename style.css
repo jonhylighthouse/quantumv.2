@@ -101,8 +101,12 @@ img { max-width:100%; display:block; }
   z-index:  99;
   opacity:  0;
   transition: opacity .3s ease;
+  pointer-events: none; /* Evita bloquear clics cuando no está visible */
 }
-.sidebar-overlay.visible { opacity:1; }
+.sidebar-overlay.visible { 
+  opacity:1; 
+  pointer-events: auto; /* Bloquea clics detrás del sidebar cuando está abierto */
+}
 
 /* Desktop: sidebar siempre visible */
 @media (min-width:1024px) {
